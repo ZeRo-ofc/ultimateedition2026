@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pousada Central — Eventos</title>
+  <meta name="description" content="Reserve eventos especiais na Pousada Central. Pedido simples e confirmação rápida pelo WhatsApp." />
+  <style>
+    :root{
+      --bg:#0b1220;
+      --muted:#9fb0d0;
+      --text:#eef3ff;
+      --border:rgba(255, 255, 255, 0.1);
+      --shadow: 0 16px 40px rgba(0,0,0,.35);
+      --radius:18px;
+      --max:1100px;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 800px at 20% 0%, rgba(125,211,252,.18), transparent 55%),
+                  radial-gradient(1100px 900px at 90% 20%, rgba(167,139,250,.16), transparent 50%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.45;
+    }
+    a{ color:inherit; text-decoration:none; }
+    .container{ max-width:var(--max); margin:0 auto; padding:0 18px; }
+
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(11,18,32,.65);
+      border-bottom:1px solid var(--border);
+    }
+    .nav{ display:flex; align-items:center; justify-content:space-between; padding:14px 0; gap:14px; }
+    .brand{ display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.2px; }
+
+    .logo-img{ /*Logo do site*/
+      height: 60px;
+      width: auto;
+      display: block;
+      width:38px; height:38px; border-radius:12px;
+      /*background: linear-gradient(135deg, rgba(125,211,252,.9), rgba(167,139,250,.9));
+      box-shadow: 0 10px 30px rgba(125,211,252,.18); //(Teste de logo)//*/
+    }
+    nav ul{ list-style:none; margin:0; padding:0; display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+    nav a{
+      color:var(--muted);
+      padding:10px 12px;
+      border-radius:12px;
+      transition:.15s;
+      border:1px solid transparent;
+    }
+    nav a:hover{ color:var(--text); border-color:var(--border); background: rgba(255,255,255,.04); }
+
+    .cta{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color:var(--text);
+      cursor:pointer;
+      transition:.15s;
+      font-weight:600;
+      user-select:none;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.06); }
+    .btn.primary{
+      border-color: rgba(125,211,252,.35);
+      background: linear-gradient(135deg, rgba(125,211,252,.18), rgba(167,139,250,.16));
+    }
+    .btn.whats{
+      border-color: rgba(52,211,153,.35);
+      background: rgba(52,211,153,.10);
+    }
+
+    .hero{ padding:42px 0 24px; }
+    .hero-grid{ display:grid; grid-template-columns: 1.25fr .75fr; gap:18px; align-items:stretch; }
+    .hero-card{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .hero-main{
+      padding:26px;
+      background:
+        radial-gradient(700px 380px at 10% 0%, rgba(125,211,252,.14), transparent 60%),
+        radial-gradient(500px 380px at 90% 20%, rgba(167,139,250,.12), transparent 55%),
+        rgba(255,255,255,.02);
+    }
+    h1{ margin:0 0 10px; font-size: clamp(26px, 3.2vw, 40px); line-height:1.1; }
+    .lead{ color:var(--muted); margin:0 0 18px; font-size: 1.05rem; }
+    .hero-actions{ display:flex; gap:10px; flex-wrap:wrap; }
+    .badges{ display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
+    .badge{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      color:var(--muted);
+      font-size:.92rem;
+    }
+    .side{ padding:18px; display:flex; flex-direction:column; gap:12px; }
+    .mini{ border:1px solid var(--border); border-radius:16px; background: rgba(255,255,255,.03); padding:14px; }
+    .mini h3{ margin:0 0 6px; font-size:1rem; }
+    .mini p{ margin:0; color:var(--muted); font-size:.95rem; }
+    .mini .tag{ display:inline-flex; margin-top:10px; font-size:.85rem; color:var(--text); padding:6px 10px; border-radius:999px; border:1px solid var(--border); background: rgba(255,255,255,.03); }
+
+    section{ padding:24px 0; }
+    .section-title{ display:flex; align-items:flex-end; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:14px; }
+    .section-title h2{ margin:0; font-size:1.35rem; }
+    .section-title p{ margin:0; color:var(--muted); }
+    .pill{
+      font-size:.82rem;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      color:var(--muted);
+    }
+
+    .events{ display:grid; grid-template-columns: 1fr; gap:12px; }
+    .event{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      border-radius: var(--radius);
+      padding:14px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+    .event .left{ display:flex; gap:12px; align-items:flex-start; }
+    .datebox{
+      min-width: 92px;
+      text-align:center;
+      border-radius:16px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      padding:10px 10px;
+    }
+    .datebox .d{ font-size:1.1rem; font-weight:800; }
+    .datebox .m{ color:var(--muted); font-size:.9rem; }
+    .event h3{ margin:0 0 4px; }
+    .event p{ margin:0; color:var(--muted); max-width: 60ch; }
+    .kicker{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+
+    .form-wrap{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:18px;
+    }
+    form{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+    label{ display:flex; flex-direction:column; gap:6px; font-size:.92rem; color:var(--muted); }
+    input, textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(11,18,32,.55);
+      color: var(--text);
+      outline:none;
+    }
+    textarea{ min-height: 110px; resize: vertical; }
+    input:focus, textarea:focus{
+      border-color: rgba(125,211,252,.45);
+      box-shadow: 0 0 0 4px rgba(125,211,252,.12);
+    }
+    .full{ grid-column: 1 / -1; }
+    .form-actions{
+      grid-column: 1 / -1;
+      display:flex; gap:10px; flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      margin-top:6px;
+    }
+    .hint{ color:var(--muted); font-size:.92rem; }
+
+    footer{ border-top:1px solid var(--border); padding:18px 0 70px; color:var(--muted); }
+    .footer-grid{ display:grid; grid-template-columns: 1.1fr .9fr; gap:14px; }
+    .foot-card{ border:1px solid var(--border); background: rgba(255,255,255,.02); border-radius: var(--radius); padding:14px; }
+
+    .float-wa{
+      position:fixed; right:16px; bottom:16px; z-index:60;
+      border-radius: 999px; padding:12px 14px;
+      border:1px solid rgba(52,211,153,.35);
+      background: rgba(52,211,153,.14);
+      box-shadow: 0 14px 30px rgba(0,0,0,.35);
+      display:flex; gap:10px; align-items:center; font-weight:800;
+    }
+    .float-wa small{ display:block; font-weight:600; color:rgba(238,243,255,.85); }
+
+
+
+    @media (max-width: 900px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      form{ grid-template-columns: 1fr; }
+      .footer-grid{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#topo" aria-label="Ir para o topo">
+        <img src="logo.png" alt="Logo Pousada Central" class="logo-img">
+        <span class="logo" aria-hidden="true"></span>
+        <span>Pousada Central</span>
+      </a>
+
+      <nav aria-label="Menu principal">
+        <ul>
+          <li><a href="#eventos">Evento</a></li>
+          <li><a href="#reservar">Reservar</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </nav>
+
+      <div class="cta">
+        <a class="btn" href="#reservar">Fazer pedido</a>
+        <a class="btn whats" id="btnWhatsTop" href="#" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="topo">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-card hero-main">
+          <h1>Reserve seu evento — simples, rápido e confirmado pelo nosos WhatsApp.</h1>
+          <p class="lead">
+            Você envia o pedido e nós confirmamos disponibilidade e detalhes (e, se necessário, sinal via Pix para garantir).
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#eventos">Ver evento</a>
+            <a class="btn" href="#reservar">Reservar agora</a>
+          </div>
+
+          <div class="badges" aria-label="Destaques">
+            <span class="badge">✅ Pedido em 1 minuto</span>
+            <span class="badge">🔒 Sem cartão no site</span>
+            <span class="badge">📲 Confirmação no WhatsApp</span>
+          </div>
+        </div>
+
+        <aside class="hero-card side" aria-label="Informações rápidas">
+          <div class="mini">
+            <h3>Como funciona</h3>
+            <p>Você envia o pedido. A pousada confirma e pode pedir sinal via Pix para garantir a vaga.</p>
+            <span class="tag">Simples e seguro</span>
+          </div>
+          <div class="mini">
+            <h3>Horário de atendimento</h3>
+            <p>Todos os dias: 24 horas</p>
+            <span class="tag">Resposta rápida</span>
+          </div>
+          <div class="mini">
+            <h3>Localização</h3>
+            <p>Alto do Rodrigues – RN</p>
+            <span class="tag">Mapa no rodapé</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- EVENTO (apenas 1 por enquanto) -->
+    <section id="eventos">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <h2>Evento em destaque</h2>
+            <p>Por enquanto temos 1 evento. Depois é só duplicar o bloco do evento para adicionar novos.</p>
+          </div>
+          <a class="btn" href="#reservar">Reservar</a>
+        </div>
+
+        <div class="events">
+          <div class="event">
+            <div class="left">
+              <div class="datebox" aria-label="Data do evento">
+                <div class="d">27–29</div>
+                <div class="m">Marc</div>
+              </div>
+              <div>
+                <h3>Alto Folia</h3>
+                <p>Ar-Condicionado, TVs, canais liberados, frigobar.</p>
+                <div class="kicker" style="margin-top:8px">
+                  <span class="pill">Evento</span>
+                  <span class="pill">Vagas limitadas</span>
+                  <span class="pill">Pagamento recomendado</span>
+                </div>
+              </div>
+            </div>
+            <button class="btn primary" type="button" data-pick-name="São João na Pousada">Reservar</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESERVAR -->
+    <section id="reservar">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <h2>Pedido de Reserva</h2>
+            <p>Você envia o pedido e nós confirmamos disponibilidade e valores finais.</p>
+          </div>
+          <span class="pill" aria-label="Aviso">🔒 Pagamento só por link/PIX (fora do site)</span>
+        </div>
+
+        <div class="form-wrap">
+          <form id="formReserva" autocomplete="on">
+            <label>
+              Nome completo
+              <input id="nome" name="nome" type="text" placeholder="Ex.: João Gabriel" required />
+            </label>
+
+            <label>
+              WhatsApp
+              <input id="whats" name="whats" type="tel" placeholder="(DDD) 9xxxx-xxxx" required />
+            </label>
+
+            <label>
+              Evento
+              <input id="item" name="item" type="text" placeholder="Ex.: São João na Pousada" required />
+            </label>
+
+            <label>
+              Data de entrada (ou data do evento)
+              <input id="checkin" name="checkin" type="date" required />
+            </label>
+
+            <label>
+              Data de saída (opcional)
+              <input id="checkout" name="checkout" type="date" />
+            </label>
+
+            <label>
+              Pessoas
+              <input id="pessoas" name="pessoas" type="number" min="1" placeholder="Ex.: 2" required />
+            </label>
+
+            <label>
+              Preferência de horário (opcional)
+              <input id="horario" name="horario" type="text" placeholder="Ex.: Chegar 14h" />
+            </label>
+
+            <label class="full">
+              Observações (opcional)
+              <textarea id="obs" name="obs" placeholder="Ex.: cama extra / alergias / etc."></textarea>
+            </label>
+
+            <div class="form-actions">
+              <div class="hint">
+                Ao clicar, você envia pelo <b>WhatsApp</b> (sem precisar de sistema de pagamento no site).
+              </div>
+              <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                <button class="btn primary" id="btnWhatsForm" type="button">Enviar no WhatsApp</button>
+                <button class="btn" type="reset">Limpar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section id="contato">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <h2>Contato</h2>
+            <p>Troque pelos seus dados reais.</p>
+          </div>
+        </div>
+
+        <div class="footer-grid">
+          <div class="foot-card">
+            <h3 style="margin:0 0 8px;">Pousada Central</h3>
+            <p class="muted" style="margin:0 0 10px;">
+              Endereço: AV. Angelo Varela, 531 — Centro, Alto do Rodrigues/RN<br/>
+              Atendimento: 24 horas<br/>
+              WhatsApp: (84) 3523-2356
+            </p>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="btn whats" id="btnWhatsContato" href="#" rel="noopener">Chamar no WhatsApp</a>
+              <a class="btn" href="#reservar">Fazer pedido</a>
+            </div>
+            <p class="muted" style="margin:10px 0 0; font-size:.92rem;">
+              Dica: use Cloudflare + HTTPS no seu domínio para mais segurança.
+            </p>
+          </div>
+
+          <div class="foot-card">
+            <h3 style="margin:0 0 8px;">Mapa</h3>
+            <p class="muted" style="margin:0 0 10px;">Localização da nossa pousada no google maps!</p>
+            <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/place/Av.+Angelo+Varela,+531+-+Centro,+Alto+do+Rodrigues+-+RN,+59507-000/@-5.2945519,-36.7646907,17z/data=!3m1!4b1!4m6!3m5!1s0x7b0dabf960c5733:0x5ca6d9976c3ab3a0!8m2!3d-5.2945572!4d-36.7621158!16s%2Fg%2F11f0_frzn8?entry=ttu&g_ep=EgoyMDI2MDIxOC4wIKXMDSoASAFQAw%3D%3D">
+              Abrir no Google Maps
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;">
+        <div>© <span id="ano"></span> Pousada Central — Todos os direitos reservados.</div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <span class="pill">Política de Privacidade (adicione)</span>
+          <span class="pill">Termos (adicione)</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="float-wa" id="floatWa" href="#" rel="noopener" aria-label="Abrir WhatsApp">
+    💬 WhatsApp
+    <small>Confirmar reserva</small>
+  </a>
+
+  <script>
+    // ✅ Seu WhatsApp (com DDI 55 e DDD, sem espaços)
+    const WHATS_NUMBER = "558435232356";
+    const $ = (id) => document.getElementById(id);
+
+    function formatDateBR(iso){
+      if(!iso) return "";
+      const [y,m,d] = iso.split("-");
+      if(!y || !m || !d) return iso;
+      return `${d}/${m}/${y}`;
+    }
+
+    function buildWhatsMessage(){
+      const nome = $("nome").value.trim();
+      const whats = $("whats").value.trim();
+      const item = $("item").value.trim();
+      const checkin = formatDateBR($("checkin").value);
+      const checkout = formatDateBR($("checkout").value);
+      const pessoas = $("pessoas").value.trim();
+      const horario = $("horario").value.trim();
+      const obs = $("obs").value.trim();
+
+      let msg =
+`Olá! Quero fazer um *pedido de reserva (EVENTO)*.
+
+*Nome:* ${nome}
+*Meu WhatsApp:* ${whats}
+*Evento:* ${item}
+*Entrada/Data:* ${checkin}`;
+
+      if (checkout) msg += `\n*Saída:* ${checkout}`;
+      msg += `\n*Pessoas:* ${pessoas}`;
+      if (horario) msg += `\n*Horário:* ${horario}`;
+      if (obs) msg += `\n*Obs:* ${obs}`;
+
+      msg += `\n\nPode confirmar disponibilidade e valores finais, por favor?`;
+      return msg;
+    }
+
+    function openWhats(){
+      const required = ["nome","whats","item","checkin","pessoas"];
+      for (const id of required){
+        if (!$(id).value.trim()){
+          alert("Preencha os campos obrigatórios antes de enviar no WhatsApp.");
+          $(id).focus();
+          return;
+        }
+      }
+      const text = encodeURIComponent(buildWhatsMessage());
+      const url = `https://wa.me/${WHATS_NUMBER}?text=${text}`;
+      window.open(url, "_blank", "noopener");
+    }
+
+    // Clique no botão "Reservar" do evento -> preenche o campo Evento e rola pro formulário
+    document.querySelectorAll("[data-pick-name]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const name = btn.getAttribute("data-pick-name");
+        $("item").value = name;
+        document.querySelector("#reservar").scrollIntoView({ behavior: "smooth" });
+      });
+    });
+
+    $("btnWhatsForm").addEventListener("click", openWhats);
+    $("floatWa").addEventListener("click", (e) => { e.preventDefault(); openWhats(); });
+
+    function openWhatsGeneric(){
+      const text = encodeURIComponent("Olá! Quero informações sobre eventos na pousada.");
+      window.open(`https://wa.me/${WHATS_NUMBER}?text=${text}`, "_blank", "noopener");
+    }
+    $("btnWhatsTop").addEventListener("click", (e)=>{ e.preventDefault(); openWhatsGeneric(); });
+    $("btnWhatsContato").addEventListener("click", (e)=>{ e.preventDefault(); openWhatsGeneric(); });
+
+    $("ano").textContent = new Date().getFullYear();
+
+    $("checkin").addEventListener("change", () => {
+      const ci = $("checkin").value;
+      if (!ci) return;
+      $("checkout").min = ci;
+    });
+  </script>
+</body>
+</html>
